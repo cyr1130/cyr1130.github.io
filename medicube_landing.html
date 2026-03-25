@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEDICUBE+ — PDRN Pink Collection</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink-100: #fff0f4;
+    --pink-200: #ffd6e3;
+    --pink-300: #ffb3cb;
+    --pink-400: #ff85aa;
+    --pink-500: #f7517a;
+    --pink-600: #e0305a;
+    --blush: #f9c6d3;
+    --cream: #fff8f9;
+    --charcoal: #2a1a1f;
+    --warm-gray: #7a6065;
+    --white: #ffffff;
+    --radius: 20px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(255,248,249,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,180,200,0.2);
+  }
+  .nav-logo {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    color: var(--pink-600);
+  }
+  .nav-logo span { color: var(--charcoal); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.06em;
+    color: var(--warm-gray); text-decoration: none;
+    transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--pink-500); }
+  .nav-cta {
+    background: var(--pink-500); color: white;
+    padding: 10px 24px; border-radius: 100px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background 0.25s, transform 0.2s;
+  }
+  .nav-cta:hover { background: var(--pink-600); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 0 0 72px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--cream) 0%, #ffe8ef 60%, var(--pink-200) 100%);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -120px; right: -120px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffb3cb55 0%, transparent 70%);
+    animation: pulse 6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:.7} 50%{transform:scale(1.1);opacity:1} }
+
+  .hero-content { position: relative; z-index: 2; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(247,81,122,0.1); border: 1px solid rgba(247,81,122,0.25);
+    padding: 6px 16px; border-radius: 100px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    color: var(--pink-500); text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: slideUp 0.7s ease both;
+  }
+  .hero-badge::before { content:'✦'; font-size: 9px; }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 5.5vw, 80px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    animation: slideUp 0.8s ease 0.1s both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--pink-500);
+  }
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 2vw, 22px);
+    font-weight: 300;
+    color: var(--warm-gray);
+    margin-bottom: 40px;
+    max-width: 420px;
+    line-height: 1.6;
+    animation: slideUp 0.8s ease 0.2s both;
+  }
+  .hero-actions {
+    display: flex; gap: 16px; align-items: center;
+    animation: slideUp 0.8s ease 0.3s both;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--pink-500), var(--pink-600));
+    color: white; padding: 16px 36px; border-radius: 100px;
+    font-size: 14px; font-weight: 600; letter-spacing: 0.04em;
+    text-decoration: none; box-shadow: 0 12px 32px rgba(247,81,122,0.35);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(247,81,122,0.45); }
+  .btn-ghost {
+    color: var(--charcoal); font-size: 14px; font-weight: 500;
+    text-decoration: none; display: flex; align-items: center; gap: 8px;
+    transition: gap 0.25s;
+  }
+  .btn-ghost:hover { gap: 14px; }
+  .btn-ghost::after { content: '→'; color: var(--pink-500); }
+
+  .hero-stats {
+    display: flex; gap: 48px; margin-top: 56px;
+    animation: slideUp 0.8s ease 0.4s both;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 700; color: var(--pink-500);
+    line-height: 1;
+  }
+  .stat-label { font-size: 12px; color: var(--warm-gray); letter-spacing: 0.06em; margin-top: 4px; }
+
+  .hero-visual {
+    position: relative; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-blob {
+    position: absolute;
+    width: 520px; height: 520px;
+    border-radius: 50% 45% 55% 48% / 48% 55% 45% 52%;
+    background: linear-gradient(135deg, var(--pink-300), var(--blush), var(--pink-200));
+    animation: morphBlob 8s ease-in-out infinite;
+  }
+  @keyframes morphBlob {
+    0%,100%{ border-radius: 50% 45% 55% 48% / 48% 55% 45% 52%; }
+    33%{ border-radius: 55% 50% 45% 52% / 52% 45% 55% 48%; }
+    66%{ border-radius: 45% 55% 52% 48% / 55% 48% 52% 45%; }
+  }
+  .hero-products {
+    position: relative; z-index: 2;
+    width: 580px; height: 400px;
+  }
+  .hero-products img {
+    width: 100%; height: 100%; object-fit: contain;
+    filter: drop-shadow(0 32px 64px rgba(247,81,122,0.25));
+    animation: floatImg 4s ease-in-out infinite;
+  }
+  @keyframes floatImg { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    background: var(--pink-500); overflow: hidden;
+    padding: 18px 0; position: relative;
+  }
+  .marquee {
+    display: flex; gap: 48px;
+    animation: marquee 22s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee span {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: white; opacity: 0.9;
+    flex-shrink: 0;
+  }
+  .marquee span.dot { color: var(--pink-200); }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 100px 72px; }
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--pink-500); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content:''; width: 32px; height: 1px; background: var(--pink-500); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700; line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .section-title em { font-style: italic; color: var(--pink-500); }
+
+  /* ── INGREDIENTS ── */
+  .ingredients { background: white; }
+  .ingredients-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; margin-top: 64px;
+    border-radius: 24px; overflow: hidden;
+    box-shadow: 0 4px 60px rgba(247,81,122,0.08);
+  }
+  .ingredient-card {
+    padding: 56px;
+    border: 1px solid rgba(255,180,200,0.2);
+    position: relative; overflow: hidden;
+    transition: background 0.4s;
+    cursor: default;
+  }
+  .ingredient-card:hover { background: var(--pink-100); }
+  .ingredient-card::after {
+    content: ''; position: absolute; right: -30px; bottom: -30px;
+    width: 140px; height: 140px; border-radius: 50%;
+    background: radial-gradient(circle, var(--blush) 0%, transparent 70%);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .ingredient-card:hover::after { opacity: 1; }
+  .ingredient-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px; font-weight: 700;
+    color: var(--pink-200); line-height: 1;
+    margin-bottom: 16px;
+  }
+  .ingredient-name {
+    font-size: 20px; font-weight: 600; margin-bottom: 12px;
+    color: var(--charcoal);
+  }
+  .ingredient-name span { color: var(--pink-500); }
+  .ingredient-desc { font-size: 14px; line-height: 1.75; color: var(--warm-gray); max-width: 320px; }
+  .ingredient-badge {
+    display: inline-block; margin-top: 20px;
+    padding: 6px 14px; border-radius: 100px;
+    background: rgba(247,81,122,0.1); color: var(--pink-500);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  }
+
+  /* ── PRODUCTS ── */
+  .products-section { background: var(--pink-100); }
+  .products-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-top: 64px;
+  }
+  .product-card {
+    background: white; border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 24px rgba(247,81,122,0.07);
+    transition: transform 0.35s, box-shadow 0.35s;
+    cursor: pointer;
+  }
+  .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 48px rgba(247,81,122,0.18); }
+  .product-img {
+    background: linear-gradient(135deg, var(--pink-100), var(--pink-200));
+    height: 260px; display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .product-img-icon {
+    font-size: 80px;
+    filter: drop-shadow(0 8px 20px rgba(247,81,122,0.25));
+    transition: transform 0.4s;
+  }
+  .product-card:hover .product-img-icon { transform: scale(1.12) rotate(-3deg); }
+  .product-tag {
+    position: absolute; top: 16px; left: 16px;
+    background: var(--pink-500); color: white;
+    padding: 4px 12px; border-radius: 100px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+  }
+  .product-info { padding: 28px 28px 32px; }
+  .product-subtitle { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: var(--pink-400); text-transform: uppercase; margin-bottom: 8px; }
+  .product-name { font-size: 17px; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
+  .product-desc { font-size: 13px; color: var(--warm-gray); line-height: 1.6; margin-bottom: 20px; }
+  .product-footer { display: flex; align-items: center; justify-content: space-between; }
+  .product-price { font-size: 20px; font-weight: 700; color: var(--charcoal); }
+  .product-price span { font-size: 13px; color: var(--warm-gray); font-weight: 400; }
+  .product-add {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink-400), var(--pink-600));
+    color: white; border: none; font-size: 22px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 6px 16px rgba(247,81,122,0.3);
+  }
+  .product-add:hover { transform: scale(1.12); box-shadow: 0 10px 24px rgba(247,81,122,0.4); }
+
+  /* ── STEPS ── */
+  .routine-section { background: white; }
+  .steps {
+    display: flex; gap: 0; margin-top: 64px;
+    position: relative;
+  }
+  .steps::before {
+    content: ''; position: absolute; top: 52px; left: 52px; right: 52px;
+    height: 2px; background: linear-gradient(90deg, var(--pink-300), var(--pink-400), var(--pink-300));
+  }
+  .step {
+    flex: 1; text-align: center; padding: 0 24px;
+    position: relative; z-index: 1;
+  }
+  .step-circle {
+    width: 104px; height: 104px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink-200), var(--pink-300));
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px; font-size: 36px;
+    box-shadow: 0 12px 32px rgba(247,81,122,0.2);
+    transition: transform 0.3s;
+  }
+  .step:hover .step-circle { transform: scale(1.08); }
+  .step-num {
+    position: absolute; top: -8px; right: calc(50% - 42px);
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--pink-500); color: white;
+    font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-name { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .step-desc { font-size: 13px; color: var(--warm-gray); line-height: 1.6; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--charcoal); }
+  .testimonials .section-label { color: var(--pink-300); }
+  .testimonials .section-label::before { background: var(--pink-300); }
+  .testimonials .section-title { color: white; }
+  .testimonials .section-title em { color: var(--pink-300); }
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-top: 64px;
+  }
+  .review-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,180,200,0.15);
+    border-radius: 20px; padding: 36px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .review-card:hover { background: rgba(247,81,122,0.1); border-color: rgba(247,81,122,0.3); }
+  .review-stars { color: var(--pink-300); font-size: 14px; letter-spacing: 2px; margin-bottom: 16px; }
+  .review-text { font-family: 'Cormorant Garamond', serif; font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 24px; font-style: italic; }
+  .review-author { display: flex; align-items: center; gap: 12px; }
+  .review-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink-300), var(--pink-500));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .review-name { font-size: 14px; font-weight: 600; color: white; }
+  .review-meta { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    padding: 100px 72px;
+    background: linear-gradient(135deg, #ff85aa, var(--pink-500), var(--pink-600));
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-banner::before, .cta-banner::after {
+    content: ''; position: absolute; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+  .cta-banner::before { width: 400px; height: 400px; top: -200px; left: -100px; }
+  .cta-banner::after { width: 300px; height: 300px; bottom: -150px; right: 0; }
+  .cta-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700; color: white; margin-bottom: 16px;
+    position: relative; z-index: 1;
+  }
+  .cta-banner p {
+    font-size: 17px; color: rgba(255,255,255,0.8);
+    margin-bottom: 40px; position: relative; z-index: 1;
+  }
+  .cta-banner .btn-white {
+    background: white; color: var(--pink-600);
+    padding: 18px 48px; border-radius: 100px;
+    font-size: 15px; font-weight: 700; letter-spacing: 0.04em;
+    text-decoration: none; display: inline-block;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative; z-index: 1;
+  }
+  .cta-banner .btn-white:hover { transform: translateY(-3px); box-shadow: 0 20px 48px rgba(0,0,0,0.25); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal); padding: 60px 72px 40px;
+    border-top: 1px solid rgba(255,180,200,0.1);
+  }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; }
+  .footer-brand { font-size: 13px; color: rgba(255,255,255,0.4); max-width: 280px; line-height: 1.7; margin-top: 12px; }
+  .footer-logo { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 20px; color: white; letter-spacing: 0.06em; }
+  .footer-logo span { color: var(--pink-400); }
+  .footer-col h4 { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pink-300); margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col a { font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--pink-300); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+  .footer-socials { display: flex; gap: 16px; }
+  .social-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: rgba(255,255,255,0.4);
+    text-decoration: none; transition: all 0.25s;
+  }
+  .social-icon:hover { border-color: var(--pink-400); color: var(--pink-400); background: rgba(247,81,122,0.1); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 120px 24px 60px; text-align: center; }
+    .hero-visual { display: none; }
+    .hero-stats { justify-content: center; }
+    .hero-actions { justify-content: center; }
+    section { padding: 64px 24px; }
+    .ingredients-grid, .products-grid, .reviews-grid { grid-template-columns: 1fr; }
+    .steps { flex-direction: column; gap: 40px; }
+    .steps::before { display: none; }
+    .cta-banner { padding: 64px 24px; }
+    footer { padding: 48px 24px 32px; }
+    .footer-top { flex-direction: column; gap: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MEDI<span>CUBE</span><sup style="color:var(--pink-500);font-size:14px">+</sup></div>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#ingredients">Ingredients</a></li>
+    <li><a href="#routine">Routine</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Shop Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">New Collection 2025</div>
+    <h1 class="hero-title">
+      PDRN Pink<br><em>Glow</em> Line
+    </h1>
+    <p class="hero-subtitle">
+      고농도 PDRN 99%와 콜라겐의 완벽한 시너지.<br>
+      진짜 피부 변화를 경험하세요.
+    </p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">컬렉션 보기</a>
+      <a href="#routine" class="btn-ghost">루틴 알아보기</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">99%</div>
+        <div class="stat-label">High Purity PDRN</div>
+      </div>
+      <div>
+        <div class="stat-num">6종</div>
+        <div class="stat-label">풀 스킨케어 라인</div>
+      </div>
+      <div>
+        <div class="stat-num">4주</div>
+        <div class="stat-label">가시적인 변화</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-blob"></div>
+    <div class="hero-products">
+      <img src="/mnt/user-data/uploads/1774411799863_image.png" alt="PDRN Pink Collection" onerror="this.style.display='none'">
+      <!-- Fallback visual if image doesn't load -->
+      <div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:80px;gap:16px;">
+        🧴💊🧪💦✨🌸
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span>PDRN 99%</span><span class="dot">✦</span>
+    <span>K-BEAUTY</span><span class="dot">✦</span>
+    <span>콜라겐 부스팅</span><span class="dot">✦</span>
+    <span>SALMON DNA</span><span class="dot">✦</span>
+    <span>피부 재생</span><span class="dot">✦</span>
+    <span>MEDICUBE+</span><span class="dot">✦</span>
+    <span>NIACINAMIDE 5%</span><span class="dot">✦</span>
+    <span>DERMA CARE</span><span class="dot">✦</span>
+    <span>PDRN 99%</span><span class="dot">✦</span>
+    <span>K-BEAUTY</span><span class="dot">✦</span>
+    <span>콜라겐 부스팅</span><span class="dot">✦</span>
+    <span>SALMON DNA</span><span class="dot">✦</span>
+    <span>피부 재생</span><span class="dot">✦</span>
+    <span>MEDICUBE+</span><span class="dot">✦</span>
+    <span>NIACINAMIDE 5%</span><span class="dot">✦</span>
+    <span>DERMA CARE</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- INGREDIENTS -->
+<section class="ingredients reveal" id="ingredients">
+  <div class="section-label">Key Ingredients</div>
+  <h2 class="section-title">피부과학이 담긴<br><em>핵심 성분</em></h2>
+  <div class="ingredients-grid">
+    <div class="ingredient-card">
+      <div class="ingredient-number">01</div>
+      <div class="ingredient-name"><span>PDRN</span> / 폴리데옥시리보뉴클레오티드</div>
+      <p class="ingredient-desc">연어 DNA에서 추출한 99% 고순도 PDRN 성분. 피부 재생을 촉진하고, 손상된 세포를 회복시켜 탄력 있고 건강한 피부로 가꿔줍니다.</p>
+      <span class="ingredient-badge">Salmon DNA Extract</span>
+    </div>
+    <div class="ingredient-card">
+      <div class="ingredient-number">02</div>
+      <div class="ingredient-name"><span>Collagen</span> / 콜라겐 & 엑소좀</div>
+      <p class="ingredient-desc">마린 콜라겐과 콜라겐 엑소좀의 이중 작용으로 피부 탄력을 개선하고, 깊은 보습을 제공합니다. 주름 개선에 탁월합니다.</p>
+      <span class="ingredient-badge">Marine Collagen Complex</span>
+    </div>
+    <div class="ingredient-card">
+      <div class="ingredient-number">03</div>
+      <div class="ingredient-name"><span>Niacinamide</span> / 나이아신아마이드 5%</div>
+      <p class="ingredient-desc">피부 톤을 균일하게 개선하고 모공을 축소시키는 5% 나이아신아마이드. 광채 나는 맑은 피부 결로 변화를 선사합니다.</p>
+      <span class="ingredient-badge">Skin Brightening</span>
+    </div>
+    <div class="ingredient-card">
+      <div class="ingredient-number">04</div>
+      <div class="ingredient-name"><span>Cica</span> / 병풀 추출물</div>
+      <p class="ingredient-desc">민감한 피부를 진정시키고 피부 장벽을 강화하는 병풀 추출물. 예민한 피부에 즉각적인 안정감을 제공합니다.</p>
+      <span class="ingredient-badge">Centella Asiatica</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section reveal" id="products">
+  <div class="section-label">PDRN Pink Collection</div>
+  <h2 class="section-title">스킨케어 <em>6종 풀라인</em></h2>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img">
+        <span class="product-tag">BESTSELLER</span>
+        <div class="product-img-icon">💊</div>
+      </div>
+      <div class="product-info">
+        <div class="product-subtitle">Face Cream</div>
+        <div class="product-name">PDRN Pink Collagen Capsule Cream</div>
+        <p class="product-desc">마이크로 캡슐 속 콜라겐이 피부에 닿는 순간 터지며 집중 탄력 케어</p>
+        <div class="product-footer">
+          <div class="product-price">₩42,000 <span>50g</span></div>
+          <button class="product-add">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">
+        <span class="product-tag">NEW</span>
+        <div class="product-img-icon">🧴</div>
+      </div>
+      <div class="product-info">
+        <div class="product-subtitle">Toner Pad</div>
+        <div class="product-name">PDRN Pink Collagen Toning Gel Toner Pad</div>
+        <p class="product-desc">99% 고순도 PDRN이 피부 결을 정돈하고 광채를 더하는 토닝 패드</p>
+        <div class="product-footer">
+          <div class="product-price">₩35,000 <span>70매</span></div>
+          <button class="product-add">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-icon">💧</div>
+      </div>
+      <div class="product-info">
+        <div class="product-subtitle">Peptide Serum</div>
+        <div class="product-name">PDRN Pink Peptide Serum</div>
+        <p class="product-desc">PDRN과 5가지 펩타이드 복합체로 피부 속부터 채워주는 집중 세럼</p>
+        <div class="product-footer">
+          <div class="product-price">₩48,000 <span>30ml</span></div>
+          <button class="product-add">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">
+        <span class="product-tag">HOT</span>
+        <div class="product-img-icon">🌟</div>
+      </div>
+      <div class="product-info">
+        <div class="product-subtitle">Collagen Shot</div>
+        <div class="product-name">PDRN Pink Collagen Exosome Shot 300</div>
+        <p class="product-desc">콜라겐 엑소좀 300억 개의 강력한 재생 앰플 샷</p>
+        <div class="product-footer">
+          <div class="product-price">₩58,000 <span>30ml</span></div>
+          <button class="product-add">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-icon">☀️</div>
+      </div>
+      <div class="product-info">
+        <div class="product-subtitle">Sun Protection</div>
+        <div class="product-name">PDRN Pink Tone Up Sun Cream SPF50+</div>
+        <p class="product-desc">SPF50+ PA++++ 자외선 차단과 동시에 톤업 효과를 선사하는 선크림</p>
+        <div class="product-footer">
+          <div class="product-price">₩28,000 <span>50ml</span></div>
+          <button class="product-add">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-icon">🌸</div>
+      </div>
+      <div class="product-info">
+        <div class="product-subtitle">Soothing Toner</div>
+        <div class="product-name">PDRN Pink Cica Soothing Toner</div>
+        <p class="product-desc">PDRN과 병풀 추출물이 피부를 진정시키고 수분을 가득 채워주는 토너</p>
+        <div class="product-footer">
+          <div class="product-price">₩32,000 <span>250ml</span></div>
+          <button class="product-add">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTINE -->
+<section class="routine-section reveal" id="routine">
+  <div class="section-label">Daily Routine</div>
+  <h2 class="section-title">완벽한 <em>데일리 루틴</em></h2>
+  <div class="steps">
+    <div class="step">
+      <div style="position:relative">
+        <div class="step-circle">🌸</div>
+        <div class="step-num">1</div>
+      </div>
+      <div class="step-name">Toning</div>
+      <p class="step-desc">PDRN Cica Soothing Toner로 피부 결을 정돈하고 수분 기반 형성</p>
+    </div>
+    <div class="step">
+      <div style="position:relative">
+        <div class="step-circle">💧</div>
+        <div class="step-num">2</div>
+      </div>
+      <div class="step-name">Essence Pad</div>
+      <p class="step-desc">Toning Gel Toner Pad로 각질 정리 및 광채 부여</p>
+    </div>
+    <div class="step">
+      <div style="position:relative">
+        <div class="step-circle">✨</div>
+        <div class="step-num">3</div>
+      </div>
+      <div class="step-name">Serum</div>
+      <p class="step-desc">Peptide Serum으로 피부 탄력 집중 케어</p>
+    </div>
+    <div class="step">
+      <div style="position:relative">
+        <div class="step-circle">💊</div>
+        <div class="step-num">4</div>
+      </div>
+      <div class="step-name">Moisturize</div>
+      <p class="step-desc">Collagen Capsule Cream으로 하루 종일 촉촉함 유지</p>
+    </div>
+    <div class="step">
+      <div style="position:relative">
+        <div class="step-circle">☀️</div>
+        <div class="step-num">5</div>
+      </div>
+      <div class="step-name">Sun Care</div>
+      <p class="step-desc">Tone Up Sun Cream으로 자외선 차단 & 밝은 피부 완성</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials reveal" id="reviews">
+  <div class="section-label">Real Reviews</div>
+  <h2 class="section-title">실제 사용자들의<br><em>생생한 후기</em></h2>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"4주 사용 후 피부 탄력이 눈에 띄게 달라졌어요. 주변에서도 피부가 좋아졌다고 해서 너무 뿌듯합니다."</p>
+      <div class="review-author">
+        <div class="review-avatar">🌸</div>
+        <div>
+          <div class="review-name">김지은</div>
+          <div class="review-meta">서울 · Verified Purchase</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"토너패드가 진짜 게임체인저예요. 아침에 이거 하나로 피부 결이 확 달라집니다. 재구매 필수!"</p>
+      <div class="review-author">
+        <div class="review-avatar">💕</div>
+        <div>
+          <div class="review-name">박소연</div>
+          <div class="review-meta">부산 · Verified Purchase</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★☆</div>
+      <p class="review-text">"선크림이 이렇게 가벼울 수 있다니! 백탁 없고 촉촉해서 메이크업 베이스로도 완벽합니다."</p>
+      <div class="review-author">
+        <div class="review-avatar">✨</div>
+        <div>
+          <div class="review-name">이미나</div>
+          <div class="review-meta">인천 · Verified Purchase</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-banner reveal">
+  <h2>지금 시작하세요.<br>피부가 달라집니다.</h2>
+  <p>첫 구매 시 20% 할인 + 무료 배송</p>
+  <a href="#" class="btn-white">전체 컬렉션 쇼핑하기 →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">MEDI<span>CUBE</span>+</div>
+      <p class="footer-brand">Dedicated to real results. 피부과학을 기반으로 한 진짜 효과를 선사합니다.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="#">PDRN Pink Line</a></li>
+        <li><a href="#">Age-R Line</a></li>
+        <li><a href="#">Zero 모공 라인</a></li>
+        <li><a href="#">신제품</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">브랜드 스토리</a></li>
+        <li><a href="#">성분 연구소</a></li>
+        <li><a href="#">지속가능성</a></li>
+        <li><a href="#">PR & Media</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">고객센터</a></li>
+        <li><a href="#">배송 안내</a></li>
+        <li><a href="#">반품/교환</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 MEDICUBE+. All rights reserved. Dedicated to real results.</div>
+    <div class="footer-socials">
+      <a href="#" class="social-icon">📷</a>
+      <a href="#" class="social-icon">▶</a>
+      <a href="#" class="social-icon">💬</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Product add button interaction
+  document.querySelectorAll('.product-add').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.textContent = '✓';
+      this.style.background = 'linear-gradient(135deg, #4CAF50, #2e7d32)';
+      setTimeout(() => {
+        this.textContent = '+';
+        this.style.background = '';
+      }, 1200);
+    });
+  });
+
+  // Hero image fallback: hide the emoji div if real image loads
+  const heroImg = document.querySelector('.hero-products img');
+  if (heroImg) {
+    heroImg.addEventListener('load', () => {
+      const fallback = heroImg.nextElementSibling;
+      if (fallback) fallback.style.display = 'none';
+    });
+  }
+</script>
+</body>
+</html>
